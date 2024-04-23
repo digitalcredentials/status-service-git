@@ -12,7 +12,7 @@ IMPORTANT NOTE ABOUT VERSIONING: If you are using a Docker Hub image of this rep
   - [DID Registries](#did-registries)
 - [Usage](#usage)
   - [Allocate Status Position](#allocate-status-position)
-  - [Revoke](#revoke)
+  - [Revocation and suspension](#revocation-and-suspension)
 - [Versioning](#versioning)
 - [Logging](#logging)
   - [Log Levels](#log-levels)
@@ -49,6 +49,7 @@ This service provides support for managing credential status in a variety of Git
 | `CRED_STATUS_DID_SEED` | seed used to deterministically generate DID | string | yes |
 | `PORT` | HTTP port on which to run the express app | number | no (default: `4008`) |
 | `ENABLE_ACCESS_LOGGING` | whether to enable access logging (see [Logging](#logging)) | boolean | no (default: `true`) |
+| `ENABLE_HTTPS_FOR_DEV` | whether to enable HTTPS in a development instance of the app | boolean | no (default: `true`) |
 | `ERROR_LOG_FILE` | log file for all errors (see [Logging](#logging)) | string | no |
 | `ALL_LOG_FILE` | log file for everything (see [Logging](#logging)) | string | no |
 | `CONSOLE_LOG_LEVEL` | console log level (see [Logging](#logging)) | `error` \| `warn`\| `info` \| `http` \| `verbose` \| `debug` \| `silly` | no (default: `silly`) |
@@ -89,7 +90,7 @@ curl --location 'http://localhost:4008/credentials/status/allocate' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "@context": [
-    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/ns/credentials/v2",
     "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.2.json"
   ],
   "id": "urn:uuid:2fe53dc9-b2ec-4939-9b2c-0d00f6663b6c",
@@ -107,7 +108,7 @@ curl --location 'http://localhost:4008/credentials/status/allocate' \
     "url": "https://dcconsortium.org",
     "image": "https://user-images.githubusercontent.com/752326/230469660-8f80d264-eccf-4edd-8e50-ea634d407778.png"
   },
-  "issuanceDate": "2023-08-02T17:43:32.903Z",
+  "validFrom": "2023-08-02T17:43:32.903Z",
   "credentialSubject": {
     "type": [
       "AchievementSubject"
@@ -139,10 +140,8 @@ This should return the same credential but with an allocated status. It should l
 ```
 {
     "@context": [
-        "https://www.w3.org/2018/credentials/v1",
-        "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.2.json",
-        "https://w3id.org/vc/status-list/2021/v1",
-        "https://w3id.org/security/suites/ed25519-2020/v1"
+        "https://www.w3.org/ns/credentials/v2",
+        "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.2.json"
     ],
     "id": "urn:uuid:2fe53dc9-b2ec-4939-9b2c-0d00f6663b6c",
     "type": [
@@ -159,7 +158,7 @@ This should return the same credential but with an allocated status. It should l
         "url": "https://dcconsortium.org",
         "image": "https://user-images.githubusercontent.com/752326/230469660-8f80d264-eccf-4edd-8e50-ea634d407778.png"
     },
-    "issuanceDate": "2023-08-02T17:43:32.903Z",
+    "validFrom": "2023-08-02T17:43:32.903Z",
     "credentialSubject": {
         "type": [
             "AchievementSubject"
@@ -185,7 +184,7 @@ This should return the same credential but with an allocated status. It should l
     },
     "credentialStatus": {
         "id": "https://jchartrand.github.io/status-test-three/DKSPRCX9WB#5",
-        "type": "StatusList2021Entry",
+        "type": "BitstringStatusListEntry",
         "statusPurpose": "revocation",
         "statusListIndex": 5,
         "statusListCredential": "https://jchartrand.github.io/status-test-three/DKSPRCX9WB"
@@ -197,12 +196,12 @@ Now, your next step would be to sign this Verifiable Credential. You could pass 
 
 NOTE: CURL can get a bit clunky if you want to experiment more (e.g., by changing what goes into the VC before signing), so you might consider trying [Postman](https://www.postman.com/downloads) which makes it easier to construct and send HTTP calls.
 
-### Revoke
+### Revocation and suspension
 
-Revocation is fully explained in the Bitstring Status List specification and our implemenations thereof, but effectively, it amounts to POSTing an object to the revocation endpoint, like so:
+Revocation and suspension are fully explained in the [Bitstring Status List](https://www.w3.org/TR/vc-bitstring-status-list/) specification and our implemenations thereof, but effectively, it amounts to POSTing an object to the revocation endpoint, like so:
 
 ```
-{credentialId: '23kdr', credentialStatus: [{type: 'StatusList2021Credential', status: 'revoked'}]}
+{credentialId: '23kdr', credentialStatus: [{type: 'BitstringStatusListCredential', status: 'revoked'}]}
 ```
 
 Fundamentally, you are just posting up the ID of the credential.
