@@ -52,7 +52,11 @@ There is a sample .env file provided called .env.example to help you get started
 
 You'll have to create two new github repositories that will be used exclusively to manage the status.  Full details of the implementation are [here](https://github.com/digitalcredentials/status-list-manager-git)
 
-For this MVP implementation of the issuer we've only exposed the github options, but if you would like to use gitlab instead, just let us know and we can expose those options.
+**IMPORTANT NOTE**  The underlying status-list-manager-git package has slightly different configuration options, as described in its own readme. In particular it allows for using two separate github tokens for
+each of the status repo and the metadata repo, whereas this service only allows using a single token for both repositories. If you have a use case
+that requires separate tokens, please let us know, or better yet, submit a PR.
+
+Similarly, we've only exposed the github options on the service, but if you would like to use gitlab instead, just let us know and we can expose those options.
 
 ## Signing key
 
