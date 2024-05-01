@@ -8,24 +8,26 @@ export function setConfig() {
   CONFIG = parseConfig();
 }
 
-function getBooleanValue(value) {
+function getBooleanValue(value, defaultValue=true) {
   value = value?.toLocaleLowerCase();
   if (
     value === 'true' ||
-    value === '1' ||
+    value === 't' ||
     value === 'yes' ||
-    value === 'y'
+    value === 'y' ||
+    value === '1'
   ) {
     return true;
   } else if (
     value === 'false' ||
-    value === '0' ||
+    value === 'f' ||
     value === 'no' ||
-    value === 'n'
+    value === 'n' ||
+    value === '0'
   ) {
     return false;
   }
-  return true;
+  return defaultValue;
 }
 
 function getGeneralEnvs(env) {
@@ -44,7 +46,8 @@ function getGeneralEnvs(env) {
 
 function getGitHubEnvs(env) {
   return {
-    credStatusAccessToken: env.CRED_STATUS_ACCESS_TOKEN,
+    credStatusRepoAccessToken: env.CRED_STATUS_REPO_ACCESS_TOKEN,
+    credStatusMetaRepoAccessToken: env.CRED_STATUS_META_REPO_ACCESS_TOKEN,
     credStatusRepoName: env.CRED_STATUS_REPO_NAME,
     credStatusMetaRepoName: env.CRED_STATUS_META_REPO_NAME,
     credStatusOwnerAccountName: env.CRED_STATUS_REPO_OWNER

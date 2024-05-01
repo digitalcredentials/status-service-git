@@ -45,7 +45,8 @@ This service provides support for managing credential status in a variety of Git
 | \* `CRED_STATUS_REPO_ID` | ID of the status credential repository | string | yes if `CRED_STATUS_SERVICE` = `gitlab` |
 | \* `CRED_STATUS_META_REPO_NAME` | name of the credential status metadata repository | string | yes |
 | \* `CRED_STATUS_META_REPO_ID` | ID of the credential status metadata repository | string | yes if `CRED_STATUS_SERVICE` = `gitlab` |
-| `CRED_STATUS_ACCESS_TOKEN` | access token for the credential status repositories | string | yes |
+| `CRED_STATUS_REPO_ACCESS_TOKEN` | access token for the status credential repository | string | yes |
+| `CRED_STATUS_META_REPO_ACCESS_TOKEN` | access token for the credential status metadata repository | string | yes |
 | `CRED_STATUS_DID_SEED` | seed used to deterministically generate DID | string | yes |
 | `PORT` | HTTP port on which to run the express app | number | no (default: `4008`) |
 | `ENABLE_ACCESS_LOGGING` | whether to enable access logging (see [Logging](#logging)) | boolean | no (default: `true`) |

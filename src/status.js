@@ -8,7 +8,8 @@ const {
   credStatusMetaRepoName,
   credStatusMetaRepoId,
   credStatusOwnerAccountName,
-  credStatusAccessToken,
+  credStatusRepoAccessToken,
+  credStatusMetaRepoAccessToken,
   credStatusDidSeed
 } = getConfig();
 
@@ -20,8 +21,8 @@ async function createGitHubStatusManager() {
     repoName: credStatusRepoName,
     metaRepoName: credStatusMetaRepoName,
     ownerAccountName: credStatusOwnerAccountName,
-    repoAccessToken: credStatusAccessToken,
-    metaRepoAccessToken: credStatusAccessToken,
+    repoAccessToken: credStatusRepoAccessToken,
+    metaRepoAccessToken: credStatusMetaRepoAccessToken,
     didMethod: 'key',
     didSeed: credStatusDidSeed,
     // This is the already the default value,
@@ -41,8 +42,8 @@ async function createGitLabStatusManager() {
     metaRepoName: credStatusMetaRepoName,
     metaRepoId: credStatusMetaRepoId,
     ownerAccountName: credStatusOwnerAccountName,
-    repoAccessToken: credStatusAccessToken,
-    metaRepoAccessToken: credStatusAccessToken,
+    repoAccessToken: credStatusRepoAccessToken,
+    metaRepoAccessToken: credStatusMetaRepoAccessToken,
     didMethod: 'key',
     didSeed: credStatusDidSeed,
     // This is the already the default value,
