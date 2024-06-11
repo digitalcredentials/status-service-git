@@ -40,7 +40,7 @@ This service provides support for managing credential status in a variety of Git
 | Key | Description | Type | Required |
 | --- | --- | --- | --- |
 | `CRED_STATUS_SERVICE` | name of the Git service used to manage credential status data | `github` \| `gitlab` | yes |
-| \* `CRED_STATUS_REPO_OWNER` | name of the owner account (personal or organization) in the Git service used to manage credential status data | string | yes |
+| \* `CRED_STATUS_OWNER_ACCOUNT_NAME` | name of the owner account (personal or organization) in the Git service used to manage credential status data | string | yes |
 | \* `CRED_STATUS_REPO_NAME` | name of the status credential repository | string | yes |
 | \* `CRED_STATUS_REPO_ID` | ID of the status credential repository | string | yes if `CRED_STATUS_SERVICE` = `gitlab` |
 | \* `CRED_STATUS_META_REPO_NAME` | name of the credential status metadata repository | string | yes |
@@ -56,7 +56,7 @@ This service provides support for managing credential status in a variety of Git
 | `CONSOLE_LOG_LEVEL` | console log level (see [Logging](#logging)) | `error` \| `warn`\| `info` \| `http` \| `verbose` \| `debug` \| `silly` | no (default: `silly`) |
 | `LOG_LEVEL` | log level for application (see [Logging](#logging)) | `error` \| `warn`\| `info` \| `http` \| `verbose` \| `debug` \| `silly` | no (default: `silly`) |
 
-\* You'll have to create Git repositories for `CRED_STATUS_REPO_NAME` and `CRED_STATUS_META_REPO_NAME` under the ownership of `CRED_STATUS_REPO_OWNER`, as they will be used to manage credential status. Full details of the implementation are [here](https://github.com/digitalcredentials/status-list-manager-git).
+\* You'll have to create Git repositories for `CRED_STATUS_REPO_NAME` and `CRED_STATUS_META_REPO_NAME` under the ownership of `CRED_STATUS_OWNER_ACCOUNT_NAME`, as they will be used to manage credential status. Full details of the implementation are [here](https://github.com/digitalcredentials/status-list-manager-git).
 
 ## Signing Key
 

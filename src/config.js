@@ -50,7 +50,7 @@ function getGitHubEnvs(env) {
     credStatusMetaRepoAccessToken: env.CRED_STATUS_META_REPO_ACCESS_TOKEN,
     credStatusRepoName: env.CRED_STATUS_REPO_NAME,
     credStatusMetaRepoName: env.CRED_STATUS_META_REPO_NAME,
-    credStatusOwnerAccountName: env.CRED_STATUS_REPO_OWNER
+    credStatusOwnerAccountName: env.CRED_STATUS_OWNER_ACCOUNT_NAME
   };
 }
 
